@@ -2,9 +2,16 @@
   "name": "voyager",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": {
+    "voyager": "./dist/index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "link": "npm unlink -g voyager && npm link",
+    "reset": "npm unlink -g voyager && rm -rf dist",
+    "build": "npx tsc",
+    "start:dev": "nodemon --watch src --exec ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -19,6 +26,7 @@
     "vitest": "^3.1.2"
   },
   "dependencies": {
-    "commander": "^13.1.0"
+    "commander": "^13.1.0",
+    "dotenv": "^16.5.0"
   }
 }
