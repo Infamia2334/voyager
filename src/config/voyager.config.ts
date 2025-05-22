@@ -1,19 +1,18 @@
 import { OptionValues } from 'commander';
 import 'dotenv/config';
 
-class OptionsConfig {
-    private hostname: string;
+export default class VoyagerConfig {
     private maxHops!: number;
     private timeouteMs!: number;
     private retries!: number;
     private json!: boolean;
     private resolveHostnames!: boolean;
 
-    constructor (hostname: string, options: OptionValues) {
-        if (!hostname || typeof hostname !== 'string') {
-            throw new Error('Hostname is required and must be a string for voyager diagnostics.')
+    constructor (hostname: string, port: number, options: OptionValues) {
+        if (!hostname || hostname === '') {
+            throw new Error('Hostname must be present for voyager diagnostics');
         }
-        this.hostname = hostname;
+        
         const {
             maxHops,
             timeoutMs,

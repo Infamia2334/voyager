@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 import { Command } from "commander";
 import CLIParser from "./cli/parse.cli";
+import VoyagerConfig from "./config/voyager.config";
 
 const program = new Command();
 
@@ -14,11 +15,17 @@ program
   .option('--json', 'Output results in JSON format')
   .option('--resolve-hostnames', 'Resolve hostnames to IP addresses');
 
-  const cliParser = new CLIParser(program.opts());
-  program.argument('<hostname>', 'Hostname')
+  const options = program.opts();
+
+
+  // const cliParser = new CLIParser(options);
+  program
+    .argument('<hostname>', 'Hostname')
+    .argument('<port>', 'Target Port [optional]')
     .description('')
-    .action((hostname) => {
-      cliParser.processHostname(hostname);
+    .action((hostname, port) => {
+      const voyagerConfig = new VoyagerConfig(hostname, port, options);
+      
     });
 
 
